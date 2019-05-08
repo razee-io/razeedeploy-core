@@ -1,0 +1,19 @@
+language: node_js
+
+node_js:
+  - "11"
+
+script:
+  - if [ "${TRAVIS_PULL_REQUEST}" != "false" ]; then npx audit-ci --low; else npx audit-ci --low || true; fi
+  - npm run lint
+  - npm test
+  - if [ -n "${TRAVIS_TAG}" ]; then npm version --no-git-tag-version "${TRAVIS_TAG}"; fi
+
+deploy:
+  - provider: npm
+    email: "${NPMJS_EMAIL}"
+    api_key: "${NPMJS_API_KEY}"
+    skip_cleanup: true
+    on:
+      tags: true
+      condition: ${TRAVIS_TAG} =~ [0-9]+\.[0-9]+\.[0-9]+
