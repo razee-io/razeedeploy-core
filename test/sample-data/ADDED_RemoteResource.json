@@ -1,0 +1,47 @@
+{
+  "type": "ADDED",
+  "object": {
+    "apiVersion": "kapitan.razee.io/v1alpha1",
+    "kind": "RemoteResource",
+    "metadata": {
+      "annotations": {
+        "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"kapitan.razee.io/v1alpha1\",\"kind\":\"RemoteResource\",\"metadata\":{\"annotations\":{},\"name\":\"rr-test\",\"namespace\":\"armada\"},\"spec\":{\"requests\":[{\"options\":{\"url\":\"https://github.com/alewitt2/samples/releases/download/0.0.3/some.yaml\"}},{\"options\":{\"url\":\"https://github.com/alewitt2/samples/releases/download/0.0.3/good.yaml\"}}]}}\n"
+      },
+      "creationTimestamp": "2019-07-31T17:27:19Z",
+      "finalizers": ["children.remoteresource.kapitan.razee.io"],
+      "generation": 1,
+      "name": "rr-test",
+      "namespace": "armada",
+      "resourceVersion": "10229719",
+      "selfLink": "/apis/kapitan.razee.io/v1alpha1/namespaces/armada/remoteresources/rr-test",
+      "uid": "72c0d92b-b3b8-11e9-962c-5e4161353a70"
+    },
+    "spec": {
+      "requests": [{
+        "options": {
+          "url": "https://github.com/alewitt2/samples/releases/download/0.0.3/some.yaml"
+        }
+      }, {
+        "options": {
+          "url": "https://github.com/alewitt2/samples/releases/download/0.0.3/good.yaml"
+        }
+      }]
+    },
+    "status": {
+      "children": {
+        "/apis/apps/v1/namespaces/armada/deployments/nginx-deployment": {
+          "kapitan.razee.io/Reconcile": "true"
+        }
+      },
+      "last-modified": [{
+        "hash": "93a190b41667845febe326b37324bf2a5822337d",
+        "last-modified": "Mon, 08 Jul 2019 18:11:25 GMT",
+        "url": "https://github.com/alewitt2/samples/releases/download/0.0.3/some.yaml"
+      }, {
+        "hash": "6118e43e4f809a9d3671d3f1f5e03fff3961ad58",
+        "last-modified": "Mon, 08 Jul 2019 18:50:38 GMT",
+        "url": "https://github.com/alewitt2/samples/releases/download/0.0.3/good.yaml"
+      }]
+    }
+  }
+}

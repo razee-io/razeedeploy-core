@@ -1,0 +1,19 @@
+{
+  "name": "remoteresources",
+  "singularName": "remoteresource",
+  "namespaced": true,
+  "kind": "RemoteResource",
+  "verbs": [
+    "delete",
+    "deletecollection",
+    "get",
+    "list",
+    "patch",
+    "create",
+    "update",
+    "watch"
+  ],
+  "shortNames": [
+    "rr"
+  ]
+}
