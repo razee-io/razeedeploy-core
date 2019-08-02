@@ -63,13 +63,4 @@ describe('CompositeController', function () {
     });
   });
 
-  // describe('#test()', function () {
-  //   it('should work', function () {
-  //     sandbox.stub(BaseController.prototype, 'name').get(() => 'fakeName');
-  //     let cc = new CompositeController({ eventData: { object: { metadata: { name: 'realName' } } } });
-  //     console.log(cc.name);
-  //     // assert.equal('1', '1', 'should');
-  //   });
-  // });
-
 });
