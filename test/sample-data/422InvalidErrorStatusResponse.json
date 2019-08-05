@@ -1,0 +1,32 @@
+{
+  "kind": "Status",
+  "apiVersion": "v1",
+  "metadata": {
+
+  },
+  "status": "Failure",
+  "message": "Deployment.apps \"nginx-deployment\" is invalid: [spec.selector: Required value, spec.template.metadata.labels: Invalid value: map[string]string(nil): `selector` does not match template `labels`, spec.template.spec.containers: Required value]",
+  "reason": "Invalid",
+  "details": {
+    "name": "nginx-deployment",
+    "group": "apps",
+    "kind": "Deployment",
+    "causes": [{
+        "reason": "FieldValueRequired",
+        "message": "Required value",
+        "field": "spec.selector"
+      },
+      {
+        "reason": "FieldValueInvalid",
+        "message": "Invalid value: map[string]string(nil): `selector` does not match template `labels`",
+        "field": "spec.template.metadata.labels"
+      },
+      {
+        "reason": "FieldValueRequired",
+        "message": "Required value",
+        "field": "spec.template.spec.containers"
+      }
+    ]
+  },
+  "code": 422
+}
