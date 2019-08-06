@@ -1,0 +1,22 @@
+{
+  "apiVersion": "kapitan.razee.io/v1alpha1",
+  "kind": "RemoteResource",
+  "metadata": {
+    "labels": {
+      "kapitan.razee.io/mode": "EnsureExists"
+    },
+    "name": "rr-test",
+    "namespace": "armada"
+  },
+  "spec": {
+    "requests": [{
+      "options": {
+        "url": "https://github.com/alewitt2/samples/releases/download/0.0.3/some.yaml"
+      }
+    }, {
+      "options": {
+        "url": "https://github.com/alewitt2/samples/releases/download/0.0.3/good.yaml"
+      }
+    }]
+  }
+}

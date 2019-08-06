@@ -63,8 +63,11 @@ describe('CompositeController', function () {
 
       let cc = new CompositeController(params);
       let applyChild = await cc.applyChild(fs.readJsonSync('./test/sample-data/Child_RemoteResource.json'));
-
       assert.deepEqual(applyChild, { statusCode: 200, body: 'test assumes applied successfully' }, 'should get test string back from execute');
+      let ensureChild = await cc.applyChild(fs.readJsonSync('./test/sample-data/Child_RemoteResource_EnsureExists.json'));
+      assert.deepEqual(ensureChild, { statusCode: 200, body: 'test assumes ensureExists applied successfully' }, 'should get test string back from execute');
+      let strategicChild = await cc.applyChild(fs.readJsonSync('./test/sample-data/Child_RemoteResource_StratMergePatch.json'));
+      assert.deepEqual(strategicChild, { statusCode: 200, body: 'test assumes applied successfully' }, 'should get test string back from execute');
     });
 
     it('should apply single child properly when no namespace provided', async function () {
@@ -101,21 +104,28 @@ describe('CompositeController', function () {
   describe('#applyChild() failure', function () {
 
     it('should return failure status code for single child properly', async function () {
-      sandbox.stub(CompositeController.prototype, 'apply').rejects({ statusCode: 400, body: 'test is sending back an error' });
-      sandbox.stub(CompositeController.prototype, 'ensureExists').rejects({ statusCode: 400, body: 'test is sending back an error' });
+      let apply = sandbox.stub(CompositeController.prototype, 'apply').rejects({ statusCode: 400, body: 'test is sending back an error' });
+      let ensure = sandbox.stub(CompositeController.prototype, 'ensureExists').rejects({ statusCode: 400, body: 'test is sending back an error' });
       let addChildren = sandbox.stub(CompositeController.prototype, 'addChildren').returns({ statusCode: 200, body: 'test assumes addChildren successful' });
       sandbox.stub(params.kubeClass, 'getKubeResourceMeta').returns(params.kubeResourceMeta);
 
       let cc = new CompositeController(params);
-      let applyChild = await cc.applyChild(fs.readJsonSync('./test/sample-data/Child_RemoteResource.json'));
 
-      assert.isTrue(addChildren.notCalled, 'should not get to addChildren');
+      let applyChild = await cc.applyChild(fs.readJsonSync('./test/sample-data/Child_RemoteResource.json'));
       assert.deepEqual(applyChild, { statusCode: 400, body: 'test is sending back an error' }, 'should return non 200 status code to caller');
+      let ensureChild = await cc.applyChild(fs.readJsonSync('./test/sample-data/Child_RemoteResource_EnsureExists.json'));
+      assert.deepEqual(ensureChild, { statusCode: 400, body: 'test is sending back an error' }, 'should return non 200 status code to caller');
+      let strategicChild = await cc.applyChild(fs.readJsonSync('./test/sample-data/Child_RemoteResource_StratMergePatch.json'));
+      assert.deepEqual(strategicChild, { statusCode: 400, body: 'test is sending back an error' }, 'should return non 200 status code to caller');
+
+      assert.isTrue(apply.calledTwice, 'should call apply twice');
+      assert.isTrue(ensure.calledOnce, 'should call enxure once');
+      assert.isTrue(addChildren.notCalled, 'should not get to addChildren');
     });
 
     it('should return failure status code for 404 child properly', async function () {
       let apply = sandbox.stub(CompositeController.prototype, 'apply').rejects({ statusCode: 400, body: 'test is sending back an error' });
-      sandbox.stub(CompositeController.prototype, 'ensureExists').rejects({ statusCode: 400, body: 'test is sending back an error' });
+      let ensure = sandbox.stub(CompositeController.prototype, 'ensureExists').rejects({ statusCode: 400, body: 'test is sending back an error' });
       let addChildren = sandbox.stub(CompositeController.prototype, 'addChildren').returns({ statusCode: 200, body: 'test assumes addChildren successful' });
       sandbox.stub(params.kubeClass, 'getKubeResourceMeta').returns(undefined);
 
@@ -123,6 +133,7 @@ describe('CompositeController', function () {
       let applyChild = await cc.applyChild({ apiVersion: 'v1Crazy1', kind: 'imafake', metadata: { namespace: 'fakeNS' } });
 
       assert.isTrue(apply.notCalled, 'should not get to apply');
+      assert.isTrue(ensure.notCalled, 'should not get to ensure');
       assert.isTrue(addChildren.notCalled, 'should not get to addChildren');
       assert.equal(applyChild.statusCode, 404, 'should return non 404 status code to caller');
       assert.equal(applyChild.body.message, 'Unable to find kubernetes resource matching: v1Crazy1/imafake', 'should return non 404 status code to caller');
@@ -130,7 +141,7 @@ describe('CompositeController', function () {
 
     it('should return failure status code for 404 child, with no namespace, properly', async function () {
       let apply = sandbox.stub(CompositeController.prototype, 'apply').rejects({ statusCode: 400, body: 'test is sending back an error' });
-      sandbox.stub(CompositeController.prototype, 'ensureExists').rejects({ statusCode: 400, body: 'test is sending back an error' });
+      let ensure = sandbox.stub(CompositeController.prototype, 'ensureExists').rejects({ statusCode: 400, body: 'test is sending back an error' });
       let addChildren = sandbox.stub(CompositeController.prototype, 'addChildren').returns({ statusCode: 200, body: 'test assumes addChildren successful' });
       sandbox.stub(params.kubeClass, 'getKubeResourceMeta').returns(undefined);
 
@@ -138,6 +149,7 @@ describe('CompositeController', function () {
       let applyChild = await cc.applyChild({ apiVersion: 'v1Crazy1', kind: 'imafake' });
 
       assert.isTrue(apply.notCalled, 'should not get to apply');
+      assert.isTrue(ensure.notCalled, 'should not get to ensure');
       assert.isTrue(addChildren.notCalled, 'should not get to addChildren');
       assert.equal(applyChild.statusCode, 404, 'should return non 404 status code to caller');
       assert.equal(applyChild.body.message, 'Unable to find kubernetes resource matching: v1Crazy1/imafake', 'should return non 404 status code to caller');
