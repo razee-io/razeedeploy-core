@@ -41,6 +41,7 @@
   "dependencies": {
     "bunyan": "^1.8.12",
     "clone": "^2.1.2",
+    "deep-equal": "^1.0.1",
     "deepmerge": "^4.0.0",
     "fs-extra": "^8.0.1",
     "js-yaml": "^3.13.1",
