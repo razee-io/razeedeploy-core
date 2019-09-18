@@ -1,13 +1,13 @@
 {
-  "name": "@razee/kapitan-core",
+  "name": "@razee/razeedeploy-core",
   "version": "0.0.0-dev",
-  "description": "Core components used to extend kapitan",
+  "description": "Core components used to extend razee deploy",
   "main": "index.js",
   "keywords": [
     "kubernetes",
     "razee",
     "razeedash",
-    "kapitan",
+    "razeedeploy",
     "CI",
     "CD",
     "CI/CD"
@@ -24,7 +24,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git@github.com:razee-io/kapitan-core.git"
+    "url": "git@github.com:razee-io/razeedeploy-core.git"
   },
   "contributors": [
     {
