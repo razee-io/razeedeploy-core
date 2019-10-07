@@ -63,3 +63,4 @@ typings/
 ########### Custom ignores ###########
 debug/
 test.js
+dev/
