@@ -22,9 +22,12 @@ const BaseTemplateController = require('./lib/BaseTemplateController');
 
 const CompositeController = require('./lib/CompositeController');
 
+const FetchEnvs = require('./lib/FetchEnvs');
+
 module.exports = {
   BaseController,
   BaseDownloadController,
   BaseTemplateController,
-  CompositeController
+  CompositeController,
+  FetchEnvs
 };
