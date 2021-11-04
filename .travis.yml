@@ -1,7 +1,7 @@
 language: node_js
 
 node_js:
-  - "11"
+  - "14"
 
 script:
   - if [ "${TRAVIS_PULL_REQUEST}" != "false" ]; then npm audit; else npm audit || true; fi
