@@ -17,7 +17,7 @@
     "test": "nyc --reporter=html --reporter=text mocha ",
     "test:debug": "mocha --inspect-brk",
     "check-coverage": "nyc check-coverage --statements 0 --branches 0 --functions 0 --lines 0",
-    "lint": "npx npm-run-all eslint yamllint markdownlint",
+    "lint": "npx npm-run-all --npm-path npm eslint yamllint markdownlint",
     "eslint": "npx eslint index.js lib/ test/",
     "yamllint": "npx yamllint .travis.yml",
     "markdownlint": "npx markdownlint README.md"
