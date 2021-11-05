@@ -64,3 +64,4 @@ typings/
 debug/
 test.js
 dev/
+.npmrc
