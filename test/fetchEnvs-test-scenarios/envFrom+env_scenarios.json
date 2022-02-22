@@ -1,0 +1,24 @@
+{
+  "scenario1": {
+    "envFrom": [
+      {
+        "configMapRef": {
+          "namespace": "razeedeploy",
+          "name": "default-values-multiple-types"
+        }
+      }
+    ],
+    "env": [
+      {
+        "name": "string",
+        "valueFrom": {
+          "secretKeyRef": {
+            "namespace": "razeedeploy",
+            "name": "overrides-multiple-types",
+            "key": "string"
+          }
+        }
+      }
+    ]
+  }
+}

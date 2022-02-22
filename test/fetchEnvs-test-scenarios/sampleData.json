@@ -1,0 +1,159 @@
+{
+  "ConfigMap": [
+    {
+      "apiVersion": "v1",
+      "kind": "ConfigMap",
+      "metadata": {
+        "name": "default-values-multiple-types",
+        "namespace": "razeedeploy"
+      },
+      "data": {
+        "array": "[1, 2, 3]",
+        "json": "{\n  \"grpc\": {\n    \"secure_server\": true,\n    \"secure_server_only\": false,\n    \"secure_port\": 55053,\n    \"strict_mtls\": false\n  },\n  \"metrics_tls_enabled\": true,\n  \"metrics_strict_mtls\": false\n}",
+        "number": "1",
+        "string": "hello",
+        "other": "data"
+      }
+    },
+    {
+      "apiVersion": "v1",
+      "kind": "ConfigMap",
+      "metadata": {
+        "name": "overrides-multiple-types",
+        "namespace": "razeedeploy"
+      },
+      "data": {
+        "array": "[4, 5, 6]",
+        "json": "{\n  \"grpc\": {\n    \"secure_port\": 80808,\n    \"strict_mtls\": true\n  },\n  \"metrics_strict_mtls\": true\n}",
+        "number": "2",
+        "string": "goodbye"
+      }
+    },
+    {
+      "apiVersion": "v1",
+      "kind": "ConfigMap",
+      "metadata": {
+        "name": "overrides-multiple-types",
+        "namespace": "razeedeploy"
+      },
+      "data": {
+        "extra": "strings"
+      }
+    },
+    {
+      "apiVersion": "v1",
+      "kind": "ConfigMap",
+      "metadata": {
+        "name": "match-labels1",
+        "namespace": "razeedeploy",
+        "labels": {
+          "host": "api.test.com",
+          "env": "dev"
+        }
+      },
+      "data": {
+        "array": "[7, 8, 9]",
+        "json": "{\"api.test.com\":[{\"path\":\"/v1/one\",\"service\":\"service-one\",\"port\":\"80\"}]}",
+        "number": "3",
+        "string": "foo",
+        "boolean": "true"
+      }
+    },
+    {
+      "apiVersion": "v1",
+      "kind": "ConfigMap",
+      "metadata": {
+        "name": "match-labels2",
+        "namespace": "razeedeploy",
+        "labels": {
+          "host": "api.test.com",
+          "env": "dev"
+        }
+      },
+      "data": {
+        "array": "[10, 11, 12]",
+        "json": "{\"api.test.com\":[{\"path\":\"/v1/two\",\"service\":\"service-two\",\"port\":\"80\"}]}",
+        "number": "4",
+        "string": "bar"
+      }
+    },
+    {
+      "apiVersion": "v1",
+      "kind": "ConfigMap",
+      "metadata": {
+        "name": "match-labels3",
+        "namespace": "razeedeploy",
+        "labels": {
+          "host": "api.test.com",
+          "env": "prod"
+        }
+      },
+      "data": {
+        "array": "[13, 14, 15]",
+        "json": "{\"api.test.com\":[{\"path\":\"/v1\",\"service\":\"service\",\"port\":\"80\"}]}",
+        "number": "5",
+        "string": "baz"
+      }
+    }
+  ],
+  "Secret": [
+    {
+      "apiVersion": "v1",
+      "kind": "Secret",
+      "metadata": {
+        "name": "default-values-multiple-types",
+        "namespace": "razeedeploy"
+      },
+      "data": {
+        "array": "WzEsIDMsIDVd",
+        "json": "ewogICJncnBjIjogewogICAgInNlY3VyZV9zZXJ2ZXIiOiB0cnVlLAogICAgInNlY3VyZV9zZXJ2ZXJfb25seSI6IGZhbHNlLAogICAgInNlY3VyZV9wb3J0IjogNTUwNTMsCiAgICAic3RyaWN0X210bHMiOiBmYWxzZQogIH0sCiAgIm1ldHJpY3NfdGxzX2VuYWJsZWQiOiB0cnVlLAogICJtZXRyaWNzX3N0cmljdF9tdGxzIjogZmFsc2UKfQ==",
+        "number": "MQ==",
+        "string": "YWRtaW4="
+      }
+    },
+    {
+      "apiVersion": "v1",
+      "kind": "Secret",
+      "metadata": {
+        "name": "overrides-multiple-types",
+        "namespace": "razeedeploy"
+      },
+      "data": {
+        "array": "WzcsIDksIDExXQ==",
+        "json": "ewogICJncnBjIjogewogICAgInNlY3VyZV9wb3J0IjogODA4MDgsCiAgICAic3RyaWN0X210bHMiOiB0cnVlCiAgfSwKICAibWV0cmljc19zdHJpY3RfbXRscyI6IHRydWUKfQ==",
+        "number": "Mg==",
+        "string": "cGFzc3dvcmQ="
+      }
+    }
+  ],
+  "CustomDataStore": [
+    {
+      "apiVersion": "deploy.razee.io/v1",
+      "kind": "CustomDataStore",
+      "metadata": {
+        "name": "default-values-multiple-types",
+        "namespace": "razeedeploy"
+      },
+      "data": {
+        "array": "[2, 4, 6]",
+        "json": "{\n  \"grpc\": {\n    \"secure_server\": true,\n    \"secure_server_only\": false,\n    \"secure_port\": 55053,\n    \"strict_mtls\": false\n  },\n  \"metrics_tls_enabled\": true,\n  \"metrics_strict_mtls\": false\n}",
+        "number": "1",
+        "string": "jar"
+      }
+    },
+    {
+      "apiVersion": "deploy.razee.io/v1",
+      "kind": "CustomDataStore",
+      "metadata": {
+        "name": "overrides-multiple-types",
+        "namespace": "razeedeploy"
+      },
+      "data": {
+        "array": "[8, 10, 12]",
+        "json": "{\n  \"grpc\": {\n    \"secure_port\": 80808,\n    \"strict_mtls\": true\n  },\n  \"metrics_strict_mtls\": true\n}",
+        "number": "2",
+        "string": "far"
+      }
+    }
+  ]
+}
