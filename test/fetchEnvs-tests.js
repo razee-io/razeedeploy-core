@@ -109,8 +109,8 @@ async function kubeGetResource(ref) {
 
 describe('fetchEnvs', function () {
   afterEach(function () {
-    controllerObject.data.object.spec.envFrom.splice(0, controllerObject.data.object.spec.envFrom.length);
-    controllerObject.data.object.spec.env.splice(0, controllerObject.data.object.spec.env.length);
+    controllerObject.data.object.spec.envFrom = [];
+    controllerObject.data.object.spec.env = [];
   });
 
 
