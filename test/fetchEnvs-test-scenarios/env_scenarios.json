@@ -1,0 +1,213 @@
+{
+  "scenario1": [
+    {
+      "name": "string_env",
+      "valueFrom": {
+        "configMapKeyRef": {
+          "namespace": "razeedeploy",
+          "name": "default-values-multiple-types",
+          "key": "string"
+        }
+      }
+    }
+  ],
+  "scenario2": [
+    {
+      "name": "number_env",
+      "valueFrom": {
+        "configMapKeyRef": {
+          "namespace": "razeedeploy",
+          "name": "match-labels3",
+          "key": "number",
+          "type": "number"
+        }
+      }
+    },
+    {
+      "name": "json_env",
+      "valueFrom": {
+        "configMapKeyRef": {
+          "namespace": "razeedeploy",
+          "name": "match-labels2",
+          "key": "json",
+          "type": "json"
+        }
+      }
+    },
+    {
+      "name": "array_env",
+      "valueFrom": {
+        "configMapKeyRef": {
+          "namespace": "razeedeploy",
+          "name": "default-values-multiple-types",
+          "key": "array",
+          "type": "json"
+        }
+      }
+    },
+    {
+      "name": "bool_env",
+      "valueFrom": {
+        "configMapKeyRef": {
+          "namespace": "razeedeploy",
+          "name": "match-labels1",
+          "key": "boolean",
+          "type": "boolean"
+        }
+      }
+    }
+  ],
+  "scenario3": [
+    {
+      "name": "json_env",
+      "valueFrom": {
+        "configMapKeyRef": {
+          "namespace": "razeedeploy",
+          "name": "default-values-multiple-types",
+          "key": "json",
+          "type": "json"
+        }
+      }
+    },
+    {
+      "name": "json_env",
+      "overrideStrategy": "merge",
+      "valueFrom": {
+        "configMapKeyRef": {
+          "namespace": "razeedeploy",
+          "name": "overrides-multiple-types",
+          "key": "json",
+          "type": "json"
+        }
+      }
+    }
+  ],
+  "scenario4": [
+    {
+      "name": "json_env",
+      "overrideStrategy": "merge",
+      "valueFrom": {
+        "configMapKeyRef": {
+          "namespace": "razeedeploy",
+          "name": "overrides-multiple-types",
+          "key": "json",
+          "type": "json"
+        }
+      }
+    },
+    {
+      "name": "json_env",
+      "valueFrom": {
+        "configMapKeyRef": {
+          "namespace": "razeedeploy",
+          "name": "default-values-multiple-types",
+          "key": "json",
+          "type": "json"
+        }
+      }
+    }
+  ],
+  "scenario5": [
+    {
+      "name": "json_env",
+      "overrideStrategy": "merge",
+      "valueFrom": {
+        "configMapKeyRef": {
+          "namespace": "razeedeploy",
+          "matchLabels": {
+            "host": "api.test.com",
+            "env": "dev"
+          },
+          "key": "json",
+          "type": "json"
+        }
+      }
+    }
+  ],
+  "scenario6": [
+    {
+      "name": "number_env",
+      "valueFrom": {
+        "configMapKeyRef": {
+          "namespace": "razeedeploy",
+          "name": "default-values-multiple-types",
+          "key": "unknown_key"
+        }
+      }
+    }
+  ],
+  "scenario7": [
+    {
+      "name": "number_env",
+      "valueFrom": {
+        "unknownKeyRef": {
+          "namespace": "razeedeploy",
+          "name": "default-values-multiple-types",
+          "key": "number"
+        }
+      }
+    }
+  ],
+  "scenario8": [
+    {
+      "name": "number_env",
+      "optional": true,
+      "valueFrom": {
+        "configMapKeyRef": {
+          "namespace": "razeedeploy",
+          "name": "default-values-multiple-types",
+          "key": "unknown_key"
+        }
+      }
+    }
+  ],
+  "scenario9": [
+    {
+      "name": "number_env",
+      "optional": true,
+      "default": "5",
+      "valueFrom": {
+        "configMapKeyRef": {
+          "namespace": "razeedeploy",
+          "name": "default-values-multiple-types",
+          "key": "unknown_key",
+          "type": "number"
+        }
+      }
+    },
+    {
+      "name": "bool_env",
+      "optional": true,
+      "default": "false",
+      "valueFrom": {
+        "configMapKeyRef": {
+          "namespace": "razeedeploy",
+          "name": "unknown-configmap",
+          "key": "boolean",
+          "type": "boolean"
+        }
+      }
+    }
+  ],
+  "scenario10": [
+    {
+      "name": "json_env",
+      "valueFrom": {
+        "genericKeyRef": {
+          "apiVersion": "deploy.razee.io/v1",
+          "kind": "CustomDataStore",
+          "name": "default-values-multiple-types",
+          "namespace": "razeedeploy",
+          "key": "array",
+          "type": "json"
+        }
+      }
+    }
+  ],
+  "scenario11": [
+    {
+      "name": "string_env",
+      "value": "my value"
+    }
+  ]
+}

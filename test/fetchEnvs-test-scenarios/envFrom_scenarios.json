@@ -1,0 +1,81 @@
+{
+  "scenario1": [
+    {
+      "configMapRef": {
+        "namespace": "razeedeploy",
+        "name": "default-values-multiple-types"
+      }
+    }
+  ],
+  "scenario2": [
+    {
+      "secretMapRef": {
+        "namespace": "razeedeploy",
+        "name": "default-values-multiple-types"
+      }
+    }
+  ],
+  "scenario3": [
+    {
+      "genericMapRef": {
+        "apiVersion": "deploy.razee.io/v1",
+        "kind": "CustomDataStore",
+        "name": "default-values-multiple-types",
+        "namespace": "razeedeploy"
+      }
+    }
+  ],
+  "scenario4": [
+    {
+      "unknownMapRef": {
+        "namespace": "razeedeploy",
+        "name": "default-values-multiple-types"
+      }
+    }
+  ],
+  "scenario5": [
+    {
+      "configMapRef": {
+        "namespace": "razeedeploy",
+        "name": "default-values-multiple-types"
+      }
+    },
+    {
+      "configMapRef": {
+        "namespace": "razeedeploy",
+        "name": "overrides-multiple-types"
+      }
+    }
+  ],
+  "scenario6": [
+    {
+      "configMapRef": {
+        "namespace": "razeedeploy",
+        "name": "overrides-multiple-types"
+      }
+    },
+    {
+      "configMapRef": {
+        "namespace": "razeedeploy",
+        "name": "default-values-multiple-types"
+      }
+    }
+  ],
+  "scenario7": [
+    {
+      "optional": true,
+      "configMapRef": {
+        "namespace": "razeedeploy",
+        "name": "unknown-configmap"
+      }
+    }
+  ],
+  "scenario8": [
+    {
+      "configMapRef": {
+        "namespace": "razeedeploy",
+        "name": "unknown-configmap"
+      }
+    }
+  ]
+}
