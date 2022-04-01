@@ -75,6 +75,35 @@ const controllerObject = {
   },
 };
 
+const altPathControllerObject = {
+  data: {
+    type: 'ADDED',
+    object: {
+      apiVersion: 'deploy.razee.io/v1alpha2',
+      kind: 'FeatureFlagSetLD',
+      metadata: {
+        name: 'rd-test',
+        namespace: 'razeedeploy',
+      },
+      spec: {
+        identityRef: {
+          envFrom: [],
+          env: []
+        }
+      }
+    }
+  },
+  kubeResourceMeta: krm,
+  kubeClass: {
+    getKubeResourceMeta: (apiVersion, kind) => {
+      const newKRM = { ...krm };
+      newKRM._apiVersion = apiVersion;
+      newKRM._kind = kind;
+      return newKRM;
+    }
+  },
+};
+
 async function kubeGetResource(ref) {
   const kubeData = await fs.readJSON(`${__dirname}/fetchEnvs-test-scenarios/sampleData.json`);
   const {
@@ -111,6 +140,8 @@ describe('fetchEnvs', function () {
   afterEach(function () {
     controllerObject.data.object.spec.envFrom = [];
     controllerObject.data.object.spec.env = [];
+    altPathControllerObject.data.object.spec.identityRef.envFrom = [];
+    altPathControllerObject.data.object.spec.identityRef.env = [];
   });
 
 
@@ -367,6 +398,25 @@ describe('fetchEnvs', function () {
         controllerObject.data.object.spec.env = (await fs.readJSON(`${__dirname}/fetchEnvs-test-scenarios/envFrom+env_scenarios.json`)).scenario1.env;
         const fetchEnvs = new FetchEnvs(controllerObject);
         const view = await fetchEnvs.get('spec');
+
+        const expectedJson = {
+          'array': '[1, 2, 3]',
+          'json': '{\n  "grpc": {\n    "secure_server": true,\n    "secure_server_only": false,\n    "secure_port": 55053,\n    "strict_mtls": false\n  },\n  "metrics_tls_enabled": true,\n  "metrics_strict_mtls": false\n}',
+          'number': '1',
+          'string': 'password',
+          'other': 'data'
+        };
+        assert.deepEqual(view, expectedJson, 'should fetch config as expected');
+      });
+    });
+
+    // #get() envFrom + env for Alt Path
+    describe('#get() envFrom + env for Alternate Path', function () {
+      it('envFrom+env_scenarios.json/scenario1: single ConfigMap with 1 secret key override', async function () {
+        altPathControllerObject.data.object.spec.identityRef.envFrom = (await fs.readJSON(`${__dirname}/fetchEnvs-test-scenarios/envFrom+env_scenarios.json`)).scenario1.envFrom;
+        altPathControllerObject.data.object.spec.identityRef.env = (await fs.readJSON(`${__dirname}/fetchEnvs-test-scenarios/envFrom+env_scenarios.json`)).scenario1.env;
+        const fetchEnvs = new FetchEnvs(altPathControllerObject);
+        const view = await fetchEnvs.get('spec.identityRef');
 
         const expectedJson = {
           'array': '[1, 2, 3]',
