@@ -209,5 +209,19 @@
       "name": "string_env",
       "value": "my value"
     }
+  ],
+  "scenario12": [
+    {
+      "name": "json_env",
+      "valueFrom": {
+        "configMapKeyRef": {
+          "namespace": "razeedeploy",
+          "name": "supposed-to-be-json-but-empty",
+          "key": "json",
+          "type": "json"
+        }
+      }
+    }
   ]
 }
+

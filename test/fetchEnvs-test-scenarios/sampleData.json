@@ -94,6 +94,17 @@
         "number": "5",
         "string": "baz"
       }
+    },
+    {
+      "apiVersion": "v1",
+      "kind": "ConfigMap",
+      "metadata": {
+        "name": "supposed-to-be-json-but-empty",
+        "namespace": "razeedeploy"
+      },
+      "data": {
+        "json": ""
+      }
     }
   ],
   "Secret": [
