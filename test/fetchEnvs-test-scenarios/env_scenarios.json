@@ -222,6 +222,19 @@
         }
       }
     }
+  ],
+  "scenario13": [
+    {
+      "name": "malformedJSON",
+      "valueFrom": {
+        "configMapKeyRef": {
+          "namespace": "razeedeploy",
+          "name": "malformed-json",
+          "key": "json",
+          "type": "json"
+        }
+      }
+    }
   ]
 }
 

@@ -105,6 +105,17 @@
       "data": {
         "json": ""
       }
+    },
+    {
+      "apiVersion": "v1",
+      "kind": "ConfigMap",
+      "metadata": {
+        "name": "malformed-json",
+        "namespace": "razeedeploy"
+      },
+      "data": {
+        "json": "{\"some\": \"value"
+      }
     }
   ],
   "Secret": [
