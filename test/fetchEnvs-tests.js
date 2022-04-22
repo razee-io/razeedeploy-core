@@ -399,16 +399,16 @@ describe('fetchEnvs', function () {
       it('env_scenarios.json/scenario13: malformed json', async function () {
         controllerObject.data.object.spec.env = (await fs.readJSON(`${__dirname}/fetchEnvs-test-scenarios/env_scenarios.json`)).scenario13;
         const fetchEnvs = new FetchEnvs(controllerObject);
-        const { name: refName } = controllerObject.data.object.spec.env[0].valueFrom.configMapKeyRef
-        const malformedValue = "{\"some\": \"value"
+        const { name: refName } = controllerObject.data.object.spec.env[0].valueFrom.configMapKeyRef;
+        const malformedValue = '{"some": "value';
 
         try {
-          view = await fetchEnvs.get('spec');
-          throw new Error("Expected an error, but no error was thrown")
+          await fetchEnvs.get('spec');
+          throw new Error('Expected an error, but no error was thrown');
         } catch (error) {
-          assert.include(error.message, refName)
-          assert.include(error.message, malformedValue)
-          assert.include(error.message, "Unexpected end of JSON input")
+          assert.include(error.message, refName);
+          assert.include(error.message, malformedValue);
+          assert.include(error.message, 'Unexpected end of JSON input');
         }
       });
     });
