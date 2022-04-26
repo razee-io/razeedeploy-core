@@ -389,6 +389,28 @@ describe('fetchEnvs', function () {
 
         assert.deepEqual(view.string_env, 'my value', 'should fetch config as expected');
       });
+      it('env_scenarios.json/scenario12: supposed to be json, but empty', async function () {
+        controllerObject.data.object.spec.env = (await fs.readJSON(`${__dirname}/fetchEnvs-test-scenarios/env_scenarios.json`)).scenario12;
+        const fetchEnvs = new FetchEnvs(controllerObject);
+        const view = await fetchEnvs.get('spec');
+
+        assert.deepEqual(view.json_env, {}, 'should return empty object instead of error');
+      });
+      it('env_scenarios.json/scenario13: malformed json', async function () {
+        controllerObject.data.object.spec.env = (await fs.readJSON(`${__dirname}/fetchEnvs-test-scenarios/env_scenarios.json`)).scenario13;
+        const fetchEnvs = new FetchEnvs(controllerObject);
+        const { name: refName } = controllerObject.data.object.spec.env[0].valueFrom.configMapKeyRef;
+        const malformedValue = '{"some": "value';
+
+        try {
+          await fetchEnvs.get('spec');
+          throw new Error('Expected an error, but no error was thrown');
+        } catch (error) {
+          assert.include(error.message, refName);
+          assert.include(error.message, malformedValue);
+          assert.include(error.message, 'Unexpected end of JSON input');
+        }
+      });
     });
 
     // #get() envFrom + env
