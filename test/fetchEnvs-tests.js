@@ -17,124 +17,50 @@
 const assert = require('chai').assert;
 const FetchEnvs = require('../lib/FetchEnvs');
 const fs = require('fs-extra');
+const MockController = require('../lib/MockController');
 
+const envData = fs.readJsonSync(`${__dirname}/fetchEnvs-test-scenarios/sampleData.json`);
 
-const krm = {
-  _apiVersion: 'deploy.razee.io/v1alpha2',
-  _kind: 'MustacheTemplate',
-  async request(reqOpt) {
-    const ref = {
-      apiVersion: reqOpt.uri.apiVersion,
-      kind: reqOpt.uri.kind,
-      name: reqOpt.uri.name,
-      namespace: reqOpt.uri.namespace,
-      labelSelector: reqOpt?.qs?.labelSelector
-    };
-
-    const res = await kubeGetResource(ref);
-    return res;
-  },
-  async get(name, namespace) {
-    const ref = this.uri({ name, namespace });
-
-    return await kubeGetResource(ref);
-  },
-  uri(options) {
-    return { ...options, apiVersion: this._apiVersion, kind: this._kind, };
+const controllerData = {
+  type: 'ADDED',
+  object: {
+    apiVersion: 'deploy.razee.io/v1alpha2',
+    kind: 'MustacheTemplate',
+    metadata: {
+      name: 'rd-test',
+      namespace: 'razeedeploy',
+    },
+    spec: {
+      clusterAuth: { impersonateUser: 'razeedeploy' },
+      templateEngine: 'handlebars',
+      envFrom: [],
+      env: [],
+      tempates: [],
+      strTemplates: [],
+    }
   }
 };
 
-const controllerObject = {
-  data: {
-    type: 'ADDED',
-    object: {
-      apiVersion: 'deploy.razee.io/v1alpha2',
-      kind: 'MustacheTemplate',
-      metadata: {
-        name: 'rd-test',
-        namespace: 'razeedeploy',
-      },
-      spec: {
-        clusterAuth: { impersonateUser: 'razeedeploy' },
-        templateEngine: 'handlebars',
+const altPathControllerData = {
+  type: 'ADDED',
+  object: {
+    apiVersion: 'deploy.razee.io/v1alpha2',
+    kind: 'FeatureFlagSetLD',
+    metadata: {
+      name: 'rd-test',
+      namespace: 'razeedeploy',
+    },
+    spec: {
+      identityRef: {
         envFrom: [],
-        env: [],
-        tempates: [],
-        strTemplates: [],
+        env: []
       }
     }
-  },
-  kubeResourceMeta: krm,
-  kubeClass: {
-    getKubeResourceMeta: (apiVersion, kind) => {
-      const newKRM = { ...krm };
-      newKRM._apiVersion = apiVersion;
-      newKRM._kind = kind;
-      return newKRM;
-    }
-  },
-};
-
-const altPathControllerObject = {
-  data: {
-    type: 'ADDED',
-    object: {
-      apiVersion: 'deploy.razee.io/v1alpha2',
-      kind: 'FeatureFlagSetLD',
-      metadata: {
-        name: 'rd-test',
-        namespace: 'razeedeploy',
-      },
-      spec: {
-        identityRef: {
-          envFrom: [],
-          env: []
-        }
-      }
-    }
-  },
-  kubeResourceMeta: krm,
-  kubeClass: {
-    getKubeResourceMeta: (apiVersion, kind) => {
-      const newKRM = { ...krm };
-      newKRM._apiVersion = apiVersion;
-      newKRM._kind = kind;
-      return newKRM;
-    }
-  },
-};
-
-async function kubeGetResource(ref) {
-  const kubeData = await fs.readJSON(`${__dirname}/fetchEnvs-test-scenarios/sampleData.json`);
-  const {
-    name,
-    labelSelector,
-    namespace,
-    kind,
-    apiVersion
-  } = ref;
-  if (!kubeData[kind]) {
-    return;
   }
+};
 
-  let fn = labelSelector ? 'filter' : 'find';
-  let lookup = kubeData[kind][fn](obj => {
-    let match = true;
-    match = (obj.apiVersion === apiVersion && match) ? true : false;
-    match = (obj.kind === kind && match) ? true : false;
-    match = ((obj.metadata.name === name || labelSelector !== undefined) && match) ? true : false;
-    match = (obj.metadata.namespace === namespace && match) ? true : false;
-    if (labelSelector) {
-      const objLabels = obj.metadata.labels ?? {};
-      labelSelector.split(',').forEach(label => {
-        let [key, value] = label.split('=');
-        match = (objLabels[key] === value && match) ? true : false;
-      });
-    }
-    return match;
-  });
-  return labelSelector ? { items: lookup } : lookup;
-}
+const controllerObject = new MockController(controllerData, envData);
+const altPathControllerObject = new MockController(altPathControllerData, envData);
 
 describe('fetchEnvs', function () {
   afterEach(function () {
