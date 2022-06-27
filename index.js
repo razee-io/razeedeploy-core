@@ -24,10 +24,16 @@ const CompositeController = require('./lib/CompositeController');
 
 const FetchEnvs = require('./lib/FetchEnvs');
 
+const MockController = require('./lib/MockController');
+
+const MockKubeResourceMeta = require('./lib/MockKubeResourceMeta');
+
 module.exports = {
   BaseController,
   BaseDownloadController,
   BaseTemplateController,
   CompositeController,
-  FetchEnvs
+  FetchEnvs,
+  MockController,
+  MockKubeResourceMeta
 };
