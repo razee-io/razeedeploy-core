@@ -28,6 +28,10 @@ const MockController = require('./lib/MockController');
 
 const MockKubeResourceMeta = require('./lib/MockKubeResourceMeta');
 
+const ReferencedResourceManager = require('.lib/ReferencedResourceManager');
+
+const RRMEventHandler = require('.lib/RRMEventHandler');
+
 module.exports = {
   BaseController,
   BaseDownloadController,
@@ -35,5 +39,7 @@ module.exports = {
   CompositeController,
   FetchEnvs,
   MockController,
-  MockKubeResourceMeta
+  MockKubeResourceMeta,
+  ReferencedResourceManager,
+  RRMEventHandler
 };
