@@ -28,9 +28,9 @@ const MockController = require('./lib/MockController');
 
 const MockKubeResourceMeta = require('./lib/MockKubeResourceMeta');
 
-const ReferencedResourceManager = require('.lib/ReferencedResourceManager');
+const ReferencedResourceManager = require('./lib/ReferencedResourceManager');
 
-const RRMEventHandler = require('.lib/RRMEventHandler');
+const RRMEventHandler = require('./lib/RRMEventHandler');
 
 module.exports = {
   BaseController,
