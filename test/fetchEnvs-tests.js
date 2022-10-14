@@ -387,8 +387,8 @@ describe('fetchEnvs', function () {
       const view = await fetchEnvs.getSourceSimpleLinks('spec');
 
       const expectedJson = {
-        "ConfigMap": [
-         "v1:ConfigMap/razeedeploy/default-values-multiple-types"
+        'ConfigMap': [
+          'v1:ConfigMap/razeedeploy/default-values-multiple-types'
         ]
       };
       assert.deepEqual(view, expectedJson, 'should fetch config as expected');
@@ -399,8 +399,8 @@ describe('fetchEnvs', function () {
       const view = await fetchEnvs.getSourceSimpleLinks('spec');
 
       const expectedJson = {
-        "Secret": [
-         "v1:Secret/razeedeploy/default-values-multiple-types"
+        'Secret': [
+          'v1:Secret/razeedeploy/default-values-multiple-types'
         ]
       };
       assert.deepEqual(view, expectedJson, 'should fetch config as expected');
@@ -411,8 +411,8 @@ describe('fetchEnvs', function () {
       const view = await fetchEnvs.getSourceSimpleLinks('spec');
 
       const expectedJson = {
-        "CustomDataStore": [
-         "deploy.razee.io/v1:CustomDataStore/razeedeploy/default-values-multiple-types"
+        'CustomDataStore': [
+          'deploy.razee.io/v1:CustomDataStore/razeedeploy/default-values-multiple-types'
         ]
       };
       assert.deepEqual(view, expectedJson, 'should fetch config as expected');
@@ -427,8 +427,8 @@ describe('fetchEnvs', function () {
       const view = await fetchEnvs.getSourceSimpleLinks('spec');
 
       const expectedJson = {
-        "ConfigMap": [
-         "v1:ConfigMap/razeedeploy/default-values-multiple-types"
+        'ConfigMap': [
+          'v1:ConfigMap/razeedeploy/default-values-multiple-types'
         ]
       };
       assert.deepEqual(view, expectedJson, 'should fetch config as expected');
@@ -444,12 +444,12 @@ describe('fetchEnvs', function () {
       const view = await fetchEnvs.getSourceSimpleLinks('spec');
 
       const expectedJson = {
-        "ConfigMap": [
-         "v1:ConfigMap/razeedeploy/default-values-multiple-types"
+        'ConfigMap': [
+          'v1:ConfigMap/razeedeploy/default-values-multiple-types'
         ],
-        "Secret": [
-          "v1:Secret/razeedeploy/overrides-multiple-types"
-         ]
+        'Secret': [
+          'v1:Secret/razeedeploy/overrides-multiple-types'
+        ]
       };
       assert.deepEqual(view, expectedJson, 'should fetch config as expected');
     });
