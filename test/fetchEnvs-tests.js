@@ -377,4 +377,81 @@ describe('fetchEnvs', function () {
       });
     });
   });
+
+
+  // #getSourceSimpleLinks() envFrom
+  describe('#getSourceSimpleLinks envFrom', function (){
+    it('envFrom_scenarios.json/scenario1: single ConfigMap ref', async function () {
+      controllerObject.data.object.spec.envFrom = (await fs.readJSON(`${__dirname}/fetchEnvs-test-scenarios/envFrom_scenarios.json`)).scenario1;
+      const fetchEnvs = new FetchEnvs(controllerObject);
+      const view = await fetchEnvs.getSourceSimpleLinks('spec');
+
+      const expectedJson = {
+        'ConfigMap': [
+          'v1:ConfigMap/razeedeploy/default-values-multiple-types'
+        ]
+      };
+      assert.deepEqual(view, expectedJson, 'should fetch config as expected');
+    });
+    it('envFrom_scenarios.json/scenario2: single Secret ref', async function () {
+      controllerObject.data.object.spec.envFrom = (await fs.readJSON(`${__dirname}/fetchEnvs-test-scenarios/envFrom_scenarios.json`)).scenario2;
+      const fetchEnvs = new FetchEnvs(controllerObject);
+      const view = await fetchEnvs.getSourceSimpleLinks('spec');
+
+      const expectedJson = {
+        'Secret': [
+          'v1:Secret/razeedeploy/default-values-multiple-types'
+        ]
+      };
+      assert.deepEqual(view, expectedJson, 'should fetch config as expected');
+    });
+    it('envFrom_scenarios.json/scenario3: single CustomDataStore ref', async function () {
+      controllerObject.data.object.spec.envFrom = (await fs.readJSON(`${__dirname}/fetchEnvs-test-scenarios/envFrom_scenarios.json`)).scenario3;
+      const fetchEnvs = new FetchEnvs(controllerObject);
+      const view = await fetchEnvs.getSourceSimpleLinks('spec');
+
+      const expectedJson = {
+        'CustomDataStore': [
+          'deploy.razee.io/v1:CustomDataStore/razeedeploy/default-values-multiple-types'
+        ]
+      };
+      assert.deepEqual(view, expectedJson, 'should fetch config as expected');
+    });
+  });
+
+  // #getSourceSimpleLinks() env
+  describe('#getSourceSimpleLinks() env', function () {
+    it('env_scenarios.json/scenario1: single ConfigMap with 1 secret key override', async function () {
+      controllerObject.data.object.spec.env = (await fs.readJSON(`${__dirname}/fetchEnvs-test-scenarios/env_scenarios.json`)).scenario1;
+      const fetchEnvs = new FetchEnvs(controllerObject);
+      const view = await fetchEnvs.getSourceSimpleLinks('spec');
+
+      const expectedJson = {
+        'ConfigMap': [
+          'v1:ConfigMap/razeedeploy/default-values-multiple-types'
+        ]
+      };
+      assert.deepEqual(view, expectedJson, 'should fetch config as expected');
+    });
+  });
+
+  // #getSourceSimpleLinks() envFrom + env
+  describe('#getSourceSimpleLinks() envFrom + env', function () {
+    it('envFrom+env_scenarios.json/scenario1: single ConfigMap with 1 secret key override', async function () {
+      controllerObject.data.object.spec.envFrom = (await fs.readJSON(`${__dirname}/fetchEnvs-test-scenarios/envFrom+env_scenarios.json`)).scenario1.envFrom;
+      controllerObject.data.object.spec.env = (await fs.readJSON(`${__dirname}/fetchEnvs-test-scenarios/envFrom+env_scenarios.json`)).scenario1.env;
+      const fetchEnvs = new FetchEnvs(controllerObject);
+      const view = await fetchEnvs.getSourceSimpleLinks('spec');
+
+      const expectedJson = {
+        'ConfigMap': [
+          'v1:ConfigMap/razeedeploy/default-values-multiple-types'
+        ],
+        'Secret': [
+          'v1:Secret/razeedeploy/overrides-multiple-types'
+        ]
+      };
+      assert.deepEqual(view, expectedJson, 'should fetch config as expected');
+    });
+  });
 });
