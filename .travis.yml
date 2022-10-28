@@ -1,6 +1,6 @@
 language: node_js
 node_js:
-  - "lts/*"
+  - "16"
 
 script:
   - if [ "${TRAVIS_PULL_REQUEST}" != "false" ]; then npm audit --only=prod; else npm audit || true; fi
