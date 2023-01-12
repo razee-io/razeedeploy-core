@@ -283,9 +283,8 @@ describe('#BaseDownloadController', async function() {
     await controller.execute();
 
     // update request option
-    let eventDataUpdate = clone(kubeData['RemoteResource'][0]);
-    eventDataUpdate = {
-      object: eventDataUpdate
+    const eventDataUpdate = {
+      object: clone(kubeData['RemoteResource'][0])
     };
     
     objectPath.set(eventDataUpdate, ['object', 'spec', 'requests'], requestupdate);
@@ -317,9 +316,8 @@ describe('#BaseDownloadController', async function() {
     const controller = setupController(eventData2);
     await controller.execute();
 
-    let eventDataUpdate = clone(kubeData['RemoteResource'][0]);
-    eventDataUpdate = {
-      object: eventDataUpdate
+    const eventDataUpdate = {
+      object: clone(kubeData['RemoteResource'][0])
     };
     
     objectPath.set(eventDataUpdate, ['object', 'spec', 'requests'], requestupdate);
