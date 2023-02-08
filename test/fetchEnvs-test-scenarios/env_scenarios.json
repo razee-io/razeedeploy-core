@@ -55,6 +55,16 @@
           "type": "boolean"
         }
       }
+    },
+    {
+      "name": "str_env",
+      "valueFrom": {
+        "configMapKeyRef": {
+          "namespace": "razeedeploy",
+          "name": "match-labels1",
+          "key": "string"
+        }
+      }
     }
   ],
   "scenario3": [
@@ -237,4 +247,3 @@
     }
   ]
 }
-
