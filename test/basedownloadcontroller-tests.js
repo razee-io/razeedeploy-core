@@ -48,7 +48,7 @@ describe('#BaseDownloadController', async function() {
       kind: 'RemoteResource',
       metadata: {
         name: 'rr',
-        namespace: 'default'
+        namespace: 'basedownloadcontrollertest'
       },
       spec: {
         clusterAuth: {
@@ -81,7 +81,7 @@ describe('#BaseDownloadController', async function() {
       kind: 'RemoteResource',
       metadata: {
         name: 'rr',
-        namespace: 'default'
+        namespace: 'basedownloadcontrollertest'
       },
       spec: {
         clusterAuth: {
@@ -111,7 +111,7 @@ describe('#BaseDownloadController', async function() {
       kind: 'RemoteResource',
       metadata: {
         name: 'rr',
-        namespace: 'default'
+        namespace: 'basedownloadcontrollertest'
       },
       spec: {
         clusterAuth: {
@@ -136,7 +136,7 @@ describe('#BaseDownloadController', async function() {
       kind: 'RemoteResource',
       metadata: {
         name: 'rr',
-        namespace: 'default'
+        namespace: 'basedownloadcontrollertest'
       },
       spec: {
         clusterAuth: {
@@ -161,7 +161,7 @@ describe('#BaseDownloadController', async function() {
       kind: 'RemoteResource',
       metadata: {
         name: 'rr1',
-        namespace: 'default'
+        namespace: 'basedownloadcontrollertest'
       },
       spec: {
         clusterAuth: {
@@ -186,7 +186,7 @@ describe('#BaseDownloadController', async function() {
       kind: 'RemoteResource',
       metadata: {
         name: 'rr',
-        namespace: 'default'
+        namespace: 'basedownloadcontrollertest'
       },
       spec: {
         clusterAuth: {
@@ -218,7 +218,7 @@ describe('#BaseDownloadController', async function() {
       kind: 'RemoteResource',
       metadata: {
         name: 'rr',
-        namespace: 'default'
+        namespace: 'basedownloadcontrollertest'
       },
       spec: {
         clusterAuth: {
@@ -250,21 +250,21 @@ describe('#BaseDownloadController', async function() {
 
   const childLink = JSON.stringify({
     name: 'config-test',
-    namespace: 'default',
+    namespace: 'basedownloadcontrollertest',
     apiVersion: 'v1',
     kind: 'ConfigMap'
   });
 
   const childLinkUpdate = JSON.stringify({
     name: 'config-test-update',
-    namespace: 'default',
+    namespace: 'basedownloadcontrollertest',
     apiVersion: 'v1',
     kind: 'ConfigMap'
   });
 
   const parentLink = JSON.stringify({
     name: 'rr',
-    namespace: 'default',
+    namespace: 'basedownloadcontrollertest',
     apiVersion: 'deploy.razee.io/v1alpha2',
     kind: 'RemoteResource'
   });
