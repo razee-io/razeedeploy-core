@@ -2,7 +2,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: config-test-update
-  namespace: basedownloadcontrollertest
+  namespace: default
   annotations:
     version: "v0.0.3"
   labels:
