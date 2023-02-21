@@ -43,7 +43,7 @@
     "bunyan": "^1.8.15",
     "clone": "^2.1.2",
     "deepmerge": "^4.2.2",
-    "fs-extra": "^10.1.0",
+    "fs-extra": "^11.1.0",
     "js-yaml": "^4.1.0",
     "lru-cache": "^7.14.0",
     "object-hash": "^3.0.0",
