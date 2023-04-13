@@ -3,7 +3,7 @@ node_js:
   - "16"
 
 script:
-  - if [ "${TRAVIS_PULL_REQUEST}" != "false" ]; then npm audit --only=prod; else npm audit || true; fi
+  - if [ "${TRAVIS_PULL_REQUEST}" != "false" ]; then npx audit-ci --config audit-ci.json --only=prod; else npx audit-ci --config audit-ci.json || true; fi
   - npm run lint
   - npm test
   - if [ -n "${TRAVIS_TAG}" ]; then npm version --no-git-tag-version "${TRAVIS_TAG}"; fi
