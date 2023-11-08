@@ -65,3 +65,6 @@ debug/
 test.js
 dev/
 .npmrc
+
+# MEND unified agent
+wss-unified-agent.jar
