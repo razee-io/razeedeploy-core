@@ -1,6 +1,7 @@
 language: node_js
+dist: focal
 node_js:
-  - "16"
+  - 18
 
 before_install:
   - export WS_APIKEY=${WS_APIKEY}
@@ -16,6 +17,10 @@ script:
   - if [ -n "${TRAVIS_TAG}" ]; then npm version --no-git-tag-version "${TRAVIS_TAG}"; fi
   # Perform UA scan on non-PR builds
   - if [ "${TRAVIS_PULL_REQUEST}" = "false" ]; then curl -LJO https://unified-agent.s3.amazonaws.com/wss-unified-agent.jar; java -jar wss-unified-agent.jar -d . || echo "UA Scan Error occurred"; fi
+
+before_deploy:
+  # Use npm v9 for deployments (v10 has problems with authentication with api_key)
+  - npm install -g npm@9
 
 deploy:
   - provider: npm
