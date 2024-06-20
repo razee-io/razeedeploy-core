@@ -9,6 +9,7 @@ before_install:
   - export WS_PRODUCTNAME=${WS_PRODUCTNAME}
   - export WS_PROJECTNAME=razeedeploy-core
   - export WS_WSS_URL=https://ibmets.whitesourcesoftware.com/agent
+  - npm get registry
 
 script:
   - if [ "${TRAVIS_PULL_REQUEST}" != "false" ]; then npx audit-ci --config audit-ci.json --only=prod; else npx audit-ci --config audit-ci.json || true; fi
