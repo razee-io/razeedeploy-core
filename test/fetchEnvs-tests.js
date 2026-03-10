@@ -334,7 +334,7 @@ describe('fetchEnvs', function () {
         } catch (error) {
           assert.include(error.message, refName);
           assert.include(error.message, malformedValue);
-          assert.include(error.message, 'Unexpected end of JSON input');
+          assert.include(error.message, 'JSON invalid in ref');
         }
       });
     });
